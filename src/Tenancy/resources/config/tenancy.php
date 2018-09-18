@@ -45,6 +45,8 @@ return [
          */
         'models-default-to-tenant-connection' => env('TENANCY_ELOQUENT_USES_TENANT_CONNECTION', false),
 
+        'models-default-to-tenant-connection-only-when-identified' => env('TENANCY_ELOQUENT_USES_TENANT_CONNECTION_IF_IDENTIFIED', true),
+
         /**
          * Enabling this setting will force all Eloquent models to use the system connection by default.
          */

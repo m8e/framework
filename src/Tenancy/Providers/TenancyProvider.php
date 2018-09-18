@@ -22,6 +22,7 @@ use Tenancy\Identification\TenantResolver;
 class TenancyProvider extends ServiceProvider
 {
     use Provides\ProvidesConfig,
+        Provides\ProvidesEloquentConnections,
         Provides\ProvidesListeners,
         Provides\ProvidesMiddleware,
         Provides\ProvidesMigrations;

@@ -36,16 +36,6 @@ class Environment
      */
     protected $identified = false;
 
-    /**
-     * @var DatabaseManager
-     */
-    private $db;
-
-    public function __construct(DatabaseManager $db)
-    {
-        $this->db = $db;
-    }
-
     public function setTenant(Tenant $tenant = null)
     {
         $this->tenant = $tenant;
@@ -80,17 +70,22 @@ class Environment
 
     public function getTenantConnection(): ?Connection
     {
-        return $this->db->connection(
-            config('tenancy.database.tenant-connection-name')
+        return app('db')->connection(
+            static::getDefaultTenantConnectionName()
         );
     }
 
     public function getSystemConnection(Tenant $tenant = null): Connection
     {
-        return $this->db->connection(
+        return app('db')->connection(
             optional($tenant ?? $this->getTenant())->getManagingSystemConnection() ??
             static::getDefaultSystemConnectionName()
         );
+    }
+
+    public static function getDefaultTenantConnectionName(): string
+    {
+        return config('tenancy.database.tenant-connection-name');
     }
 
     public static function getDefaultSystemConnectionName(): string
